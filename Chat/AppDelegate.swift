@@ -13,9 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var members:[Person]?
+    var groups:[Group]?
+    var events:[Event]?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         buildMembers()
+        buildGroups()
+        buildEvents()
         // Override point for customization after application launch.
         return true
     }
@@ -76,6 +80,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.members?.sort(by: {(p1:Person,p2:Person) -> Bool in
             return p1.userName < p2.userName
         })
+    }
+    func buildEvents()
+    {
+        var e:Event
+        for i in (0...10)
+        {
+            e = Event(eventName: "Event#\(i)")
+            events?.append(e)
+        }
+    }
+    func buildGroups()
+    {
+        var g:Group
+        for i in (0...10)
+        {
+            g = Group(groupName: "Group#\(i)")
+            groups?.append(g)
+        }
+        
     }
 }
 

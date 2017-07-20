@@ -202,6 +202,27 @@
                                     <constraint firstItem="Wr3-4x-hAG" firstAttribute="leading" secondItem="UBd-4b-weA" secondAttribute="leading" constant="5" id="iL2-Em-3Gj"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8Y-BN-OYd" userLabel="SegContainer">
+                                <rect key="frame" x="0.0" y="120" width="375" height="30"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TZq-Am-HNE">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
+                                        <segments>
+                                            <segment title="First"/>
+                                            <segment title="Second"/>
+                                            <segment title="third"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1lA-Xs-CV8"/>
+                                    <constraint firstItem="TZq-Am-HNE" firstAttribute="top" secondItem="D8Y-BN-OYd" secondAttribute="top" id="Av1-l3-RO2"/>
+                                    <constraint firstAttribute="trailing" secondItem="TZq-Am-HNE" secondAttribute="trailing" id="R2j-EH-cT7"/>
+                                    <constraint firstItem="TZq-Am-HNE" firstAttribute="leading" secondItem="D8Y-BN-OYd" secondAttribute="leading" id="l3a-HG-CoB"/>
+                                    <constraint firstAttribute="bottom" secondItem="TZq-Am-HNE" secondAttribute="bottom" id="qCM-60-Gt5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -209,13 +230,18 @@
                             <constraint firstItem="gGK-si-tuE" firstAttribute="top" secondItem="gEk-fL-Hqr" secondAttribute="bottom" constant="-20" id="BvJ-M7-90a"/>
                             <constraint firstItem="qvD-h6-Uje" firstAttribute="top" secondItem="gGK-si-tuE" secondAttribute="bottom" id="CMx-IS-9k6"/>
                             <constraint firstAttribute="trailing" secondItem="UBd-4b-weA" secondAttribute="trailing" id="EYw-C3-pIU"/>
+                            <constraint firstItem="D8Y-BN-OYd" firstAttribute="top" secondItem="UBd-4b-weA" secondAttribute="bottom" id="HV7-i5-zFm"/>
                             <constraint firstItem="gGK-si-tuE" firstAttribute="leading" secondItem="dHd-AZ-rxc" secondAttribute="leading" id="Pp7-ap-Uph"/>
                             <constraint firstItem="UBd-4b-weA" firstAttribute="leading" secondItem="dHd-AZ-rxc" secondAttribute="leading" id="YaO-Cp-QMY"/>
                             <constraint firstItem="UBd-4b-weA" firstAttribute="top" secondItem="gEk-fL-Hqr" secondAttribute="bottom" constant="-20" id="cxc-93-WXX"/>
+                            <constraint firstItem="D8Y-BN-OYd" firstAttribute="leading" secondItem="dHd-AZ-rxc" secondAttribute="leading" id="ppQ-PF-oMe"/>
+                            <constraint firstAttribute="trailing" secondItem="D8Y-BN-OYd" secondAttribute="trailing" id="tLP-h3-muK"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="SegContainer" destination="D8Y-BN-OYd" id="ST6-T9-wp7"/>
+                        <outlet property="chatSeg" destination="TZq-Am-HNE" id="US0-gJ-cdf"/>
                         <outlet property="header" destination="UBd-4b-weA" id="mMY-OA-dTM"/>
                         <outlet property="headerLabel" destination="Wr3-4x-hAG" id="pHs-gW-KUS"/>
                         <outlet property="overlay" destination="cyn-wz-jZb" id="rCO-ae-a0X"/>
@@ -226,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKM-PQ-ZLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2478" y="-539"/>
+            <point key="canvasLocation" x="2477.5999999999999" y="-539.28035982008998"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="8E1-Dr-KMa">

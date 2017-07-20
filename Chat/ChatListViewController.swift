@@ -28,6 +28,8 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
     @IBOutlet weak var overlay: UIView!
     @IBOutlet weak var overlayHeaderLabel: UILabel!
     
+    @IBOutlet weak var chatSeg: UISegmentedControl!
+    @IBOutlet weak var SegContainer: UIView!
     var headerImageView:UIImageView!
     var partnerChat:Person?
     var chatWith:String?
@@ -41,7 +43,7 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
         super.viewDidLoad()
         self.tableView.register(UINib(nibName:"MemberCell",bundle:nil), forCellReuseIdentifier: "MemberCellId")
         let initialHeaderHeight = header.bounds.height
-        tableView.contentInset = UIEdgeInsetsMake(initialHeaderHeight, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(initialHeaderHeight+SegContainer!.frame.size.height, 0, 0, 0)
         let rect:CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         deltaHeaderLabelY = (headerLabel.frame.origin.y - end_pos_headerLabel_y)
         let font = headerLabel.font
@@ -56,7 +58,8 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
         start_pos_headerLabel_x = headerLabel.frame.origin.x
         tableView.scrollRectToVisible(rect, animated: false)
         tableView.delegate = self
-        print("initialHeaderHeight=\(initialHeaderHeight)")
+//        print("initialHeaderHeight=\(initialHeaderHeight)")
+        addSegementedControll()
     }
     override func viewDidAppear(_ animated: Bool) {
         headerImageView = UIImageView(frame: header.bounds)
@@ -64,6 +67,7 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
         headerImageView?.contentMode = UIViewContentMode.scaleAspectFill
         header.insertSubview(headerImageView, belowSubview: headerLabel)
         header.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         
     }
     override func didReceiveMemoryWarning() {
@@ -101,7 +105,7 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row:\(indexPath.row)")
     }
-    
+    /*
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30.0))
         let segmentedControl = UISegmentedControl(items: ["אנשים","קבוצות","אירועים"])
@@ -117,7 +121,7 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
- 
+ */
     func mapTypeChanged(segControl: UISegmentedControl) //removing th
     {
         switch segControl.selectedSegmentIndex{
@@ -142,23 +146,31 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
     // MARK: UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var offset = tableView.contentOffset.y
-        offset = offset + header.bounds.height
+        offset = offset + header.bounds.height + SegContainer!.frame.size.height
 //        var avatarTransform = CATransform3DIdentity
         var headerTransform = CATransform3DIdentity
         let headerLabelTransform = CATransform3DIdentity
+        var segContainerTransform = CATransform3DIdentity
         // PULL DOWN -----------------
         if offset < 0 {
             let headerScaleFactor:CGFloat = -(offset) / header.bounds.height
             let headerSizevariation = ((header.bounds.height * (1.0 + headerScaleFactor)) - header.bounds.height)/2.0
+            
+            let segContainerVariation = ((header.bounds.height * (1.0 + headerScaleFactor)) - header.bounds.height)/2.0
+            
             headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
+            segContainerTransform =  CATransform3DTranslate(headerTransform, 0, segContainerVariation, 0)
             headerTransform = CATransform3DScale(headerTransform, 1.0 + headerScaleFactor, 1.0 + headerScaleFactor, 0)
             //            print("headerScaleFactor=\(headerScaleFactor) headerSizevariation=\(headerSizevariation)")
             header.layer.transform = headerTransform
+            SegContainer.layer.transform = segContainerTransform
             // SCROLL UP/DOWN ------------
         } else {
             let headerSizeVariation = min(offset_HeaderStop, offset )
             headerTransform = CATransform3DTranslate(headerTransform, 0, -(headerSizeVariation), 0)
+            segContainerTransform = headerTransform
             header.layer.transform = headerTransform
+            SegContainer.layer.transform = segContainerTransform
             // HEADER LABEL ------------
             if deltaHeaderLabelY == nil {
                 return}
@@ -182,14 +194,32 @@ class ChatListViewController: UIViewController,UITableViewDataSource,UITableView
             headerLabel.layer.transform = headerLabelTransform
             overlayHeaderLabel.font = headerLabel.font
             overlayHeaderLabel.frame = headerLabel.frame
-            if ( tableView.contentOffset.y>=(-120.0)) && (tableView.contentOffset.y<=(-50.0) ) {
-                tableView.contentInset = UIEdgeInsetsMake(-tableView.contentOffset.y, 0, 0, 0);
-            } else {
-                tableView.contentInset = UIEdgeInsetsMake(50.0, 0, 0, 0);
-            }
+            
+//            if ( tableView.contentOffset.y>=(-120.0)) && (tableView.contentOffset.y<=(-50.0) ) {
+//                tableView.contentInset = UIEdgeInsetsMake(-tableView.contentOffset.y, 0, 0, 0);
+//            } else {
+//                tableView.contentInset = UIEdgeInsetsMake(50.0, 0, 0, 0);
+//            }
             
             print("contextInset=\(tableView.contentInset.top) offset=\(tableView.contentOffset.y)")
         }
+    }
+    func addSegementedControll() {
+        let headerSegView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30.0))
+        let segmentedControl = UISegmentedControl(items: ["אנשים","קבוצות","אירועים"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(mapTypeChanged), for: .valueChanged)
+        headerSegView.addSubview(segmentedControl)
+        
+        let horizontalConstraintLeading = NSLayoutConstraint(item: headerSegView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: segmentedControl, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0.0)
+        let horizontalConstraintTrailing = NSLayoutConstraint(item: headerSegView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: segmentedControl, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
+        let headerSegViewVerticalConstrainst = NSLayoutConstraint(item: headerSegView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.view!, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0.0 )
+        headerSegViewVerticalConstrainst.identifier = "SegmentConstaintId"
+        headerSegView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(headerSegView)
+        
+        NSLayoutConstraint.activate([horizontalConstraintLeading, horizontalConstraintTrailing,headerSegViewVerticalConstrainst])
+        
     }
 //    func chatWith(_ partner: Person) {
 //        print("tap!")
