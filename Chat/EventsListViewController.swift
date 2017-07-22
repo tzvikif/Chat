@@ -1,5 +1,5 @@
 //
-//  ChatListViewController.swift
+//  EventsListViewController.swift
 //  Chat
 //
 //  Created by tzviki fisher on 20/07/2017.
@@ -8,15 +8,17 @@
 
 import UIKit
 
-class ChatListViewController: UITableViewController {
+class EventsListViewController: UITableViewController {
 
-    var headerTableViewDelegate:HeaderTableViewDelegate?
+    var events:[Event]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UINib(nibName:"MemberCell",bundle:nil), forCellReuseIdentifier: "MemberCellId")
-//        tableView.contentInset = UIEdgeInsetsMake(initialHeaderHeight+SegContainer!.frame.size.height, 0, 0, 0)
-        tableView.contentInset = UIEdgeInsetsMake(120.0+30.0, 0, 0, 0)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        events = appDelegate.events
+
+        let tableView:UITableView = self.view as! UITableView
+        self.tableView.register(UINib(nibName:"EventCell",bundle:nil), forCellReuseIdentifier: "eventCellId")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -37,40 +39,21 @@ class ChatListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if let count = appDelegate.members?.count {
-            print("count: \(count)")
+        // #warning Incomplete implementation, return the number of rows
+        if let count = events?.count {
             return count
         } else {
             return 0
         }
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemberCellId") as! MemberCell
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if (appDelegate.members) != nil {
-            let member:Person = appDelegate.members![indexPath.row]
-            cell.userName = member.userName
-            cell.isOnline = member.isOnline
-//            cell.delegate = self
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCellId", for: indexPath)
+        cell.textLabel?.text = "\(events![indexPath.row].name)#\(indexPath.row)"
         return cell
-        
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemberCellId") as! MemberCell
-        return cell.frame.height
-    }
-    // MARK: - Table view data delegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected row:\(indexPath.row)")
-    }
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var offset = tableView.contentOffset.y
-        offset = offset + 120.0 + 30.0
-        headerTableViewDelegate?.didScroll(withOffset: offset)
-    }
+    
 
     /*
     // Override to support conditional editing of the table view.

@@ -146,10 +146,10 @@
             </objects>
             <point key="canvasLocation" x="1719" y="-1104"/>
         </scene>
-        <!--Chat List View Controller-->
+        <!--Container View Controller-->
         <scene sceneID="yiW-jA-pIs">
             <objects>
-                <viewController id="4xB-He-kxU" customClass="ChatListViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4xB-He-kxU" customClass="ContainerViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEk-fL-Hqr"/>
                         <viewControllerLayoutGuide type="bottom" id="qvD-h6-Uje"/>
@@ -158,14 +158,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gGK-si-tuE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="4xB-He-kxU" id="8uW-Qh-LQ4"/>
-                                    <outlet property="delegate" destination="4xB-He-kxU" id="CMY-Cg-kfO"/>
-                                </connections>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBd-4b-weA" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                 <subviews>
@@ -226,33 +218,60 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gGK-si-tuE" secondAttribute="trailing" id="3rw-Ha-7ke"/>
-                            <constraint firstItem="gGK-si-tuE" firstAttribute="top" secondItem="gEk-fL-Hqr" secondAttribute="bottom" constant="-20" id="BvJ-M7-90a"/>
-                            <constraint firstItem="qvD-h6-Uje" firstAttribute="top" secondItem="gGK-si-tuE" secondAttribute="bottom" id="CMx-IS-9k6"/>
                             <constraint firstAttribute="trailing" secondItem="UBd-4b-weA" secondAttribute="trailing" id="EYw-C3-pIU"/>
                             <constraint firstItem="D8Y-BN-OYd" firstAttribute="top" secondItem="UBd-4b-weA" secondAttribute="bottom" id="HV7-i5-zFm"/>
-                            <constraint firstItem="gGK-si-tuE" firstAttribute="leading" secondItem="dHd-AZ-rxc" secondAttribute="leading" id="Pp7-ap-Uph"/>
+                            <constraint firstItem="UBd-4b-weA" firstAttribute="top" secondItem="gEk-fL-Hqr" secondAttribute="bottom" constant="-20" id="X7B-Zv-jrq"/>
                             <constraint firstItem="UBd-4b-weA" firstAttribute="leading" secondItem="dHd-AZ-rxc" secondAttribute="leading" id="YaO-Cp-QMY"/>
-                            <constraint firstItem="UBd-4b-weA" firstAttribute="top" secondItem="gEk-fL-Hqr" secondAttribute="bottom" constant="-20" id="cxc-93-WXX"/>
                             <constraint firstItem="D8Y-BN-OYd" firstAttribute="leading" secondItem="dHd-AZ-rxc" secondAttribute="leading" id="ppQ-PF-oMe"/>
                             <constraint firstAttribute="trailing" secondItem="D8Y-BN-OYd" secondAttribute="trailing" id="tLP-h3-muK"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="SegContainer" destination="D8Y-BN-OYd" id="ST6-T9-wp7"/>
-                        <outlet property="chatSeg" destination="TZq-Am-HNE" id="US0-gJ-cdf"/>
-                        <outlet property="header" destination="UBd-4b-weA" id="mMY-OA-dTM"/>
-                        <outlet property="headerLabel" destination="Wr3-4x-hAG" id="pHs-gW-KUS"/>
-                        <outlet property="overlay" destination="cyn-wz-jZb" id="rCO-ae-a0X"/>
-                        <outlet property="overlayHeaderLabel" destination="7iK-hh-Svr" id="yUn-xs-LKr"/>
-                        <outlet property="tableView" destination="gGK-si-tuE" id="rJE-ps-T1x"/>
+                        <outlet property="SegContainer" destination="D8Y-BN-OYd" id="dXH-2W-31A"/>
+                        <outlet property="chatSeg" destination="TZq-Am-HNE" id="N4h-iQ-C1n"/>
+                        <outlet property="header" destination="UBd-4b-weA" id="qC8-W5-EYh"/>
+                        <outlet property="headerLabel" destination="Wr3-4x-hAG" id="y5v-G8-7yn"/>
+                        <outlet property="overlay" destination="cyn-wz-jZb" id="f5X-oU-7Mg"/>
+                        <outlet property="overlayHeaderLabel" destination="7iK-hh-Svr" id="6MR-Jb-ylS"/>
                         <segue destination="gjz-Nh-y3r" kind="show" identifier="ToChatId" id="7RB-2T-8V2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKM-PQ-ZLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2477.5999999999999" y="-539.28035982008998"/>
+        </scene>
+        <!--Chat List View Controller-->
+        <scene sceneID="Xbj-n6-P80">
+            <objects>
+                <viewController restorationIdentifier="ChatContentController" storyboardIdentifier="ChatContentController" id="TCE-oV-l0I" customClass="ChatListViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="IK2-iu-sAS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="TCE-oV-l0I" id="8sE-C4-gKF"/>
+                            <outlet property="delegate" destination="TCE-oV-l0I" id="je3-dY-F6H"/>
+                        </connections>
+                    </tableView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8xk-0f-nJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3432" y="-509"/>
+        </scene>
+        <!--Events List View Controller-->
+        <scene sceneID="rgO-OQ-Ev4">
+            <objects>
+                <viewController restorationIdentifier="EventsContentController" storyboardIdentifier="EventsContentController" id="TKz-By-eUf" customClass="EventsListViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fHo-Fv-fPZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tableView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IdP-fh-Wht" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2997" y="4"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="8E1-Dr-KMa">
@@ -270,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rip-MK-TaE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3302" y="-1141"/>
+            <point key="canvasLocation" x="3540" y="-1115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S0b-mt-kai">
@@ -290,6 +309,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ppl-11-2dL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="321" y="-1141"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kF6-dw-C5Z">
+            <objects>
+                <viewController id="aXx-z5-7ZY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tqp-9x-e4n">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cc6-IO-aA1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Chat Page View Controller-->
+        <scene sceneID="Laa-Kd-WR6">
+            <objects>
+                <pageViewController storyboardIdentifier="ChatPageViewControllerId" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="5Bf-D4-PkX" customClass="ChatPageViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uxe-zP-JQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1718" y="-108"/>
         </scene>
     </scenes>
 </document>

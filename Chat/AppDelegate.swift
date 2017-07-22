@@ -84,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func buildEvents()
     {
         var e:Event
+        self.events = [Event]()
         for i in (0...10)
         {
             e = Event(eventName: "Event#\(i)")
@@ -92,6 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func buildGroups()
     {
+        self.groups = [Group]()
         var g:Group
         for i in (0...10)
         {
