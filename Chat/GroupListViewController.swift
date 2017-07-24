@@ -1,37 +1,30 @@
 //
-//  EventsListViewController.swift
+//  GroupListViewController.swift
 //  Chat
 //
-//  Created by tzviki fisher on 20/07/2017.
+//  Created by tzviki fisher on 23/07/2017.
 //  Copyright © 2017 tzviki fisher. All rights reserved.
 //
 
 import UIKit
 
-class EventsListViewController: ListBaseViewController {
-
-    var events:[Event]?   
+class GroupListViewController: ListBaseViewController {
+//    let headerOffset:CGFloat = 120.0 + 30.0
+    var groups:[Group]?
+//    var headerTableViewDelegate:HeaderTableViewDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        events = appDelegate.events
+    self.tableView.register(UINib(nibName:"GroupCell",bundle:nil), forCellReuseIdentifier: "groupCellId")
         tableView.contentInset = UIEdgeInsetsMake(120.0+30.0, 0, 0, 0)
-        self.tableView.register(UINib(nibName:"EventCell",bundle:nil), forCellReuseIdentifier: "eventCellId")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        groups = appDelegate.groups
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-        headerTableViewDelegate?.didScroll(withOffset: -0)
-    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,7 +34,7 @@ class EventsListViewController: ListBaseViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let count = events?.count {
+        if let count = groups?.count {
             return count
         } else {
             return 0
@@ -50,15 +43,11 @@ class EventsListViewController: ListBaseViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCellId", for: indexPath)
-        cell.textLabel?.text = events![indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "groupCellId", for: indexPath)
+        cell.textLabel?.text = groups![indexPath.row].name
         return cell
+
     }
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        var offset = tableView.contentOffset.y
-//        offset = offset + headerOffset
-//        headerTableViewDelegate?.didScroll(withOffset: offset)
-//    }
     
 
     /*

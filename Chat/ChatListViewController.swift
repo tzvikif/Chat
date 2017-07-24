@@ -8,9 +8,7 @@
 
 import UIKit
 
-class ChatListViewController: UITableViewController {
-
-    var headerTableViewDelegate:HeaderTableViewDelegate?
+class ChatListViewController: ListBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +21,9 @@ class ChatListViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -66,11 +66,11 @@ class ChatListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row:\(indexPath.row)")
     }
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var offset = tableView.contentOffset.y
-        offset = offset + 120.0 + 30.0
-        headerTableViewDelegate?.didScroll(withOffset: offset)
-    }
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        var offset = tableView.contentOffset.y
+//        offset = offset + 120.0 + 30.0
+//        headerTableViewDelegate?.didScroll(withOffset: offset)
+//    }
 
     /*
     // Override to support conditional editing of the table view.

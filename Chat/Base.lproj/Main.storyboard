@@ -200,9 +200,9 @@
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TZq-Am-HNE">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                                         <segments>
-                                            <segment title="First"/>
-                                            <segment title="Second"/>
-                                            <segment title="third"/>
+                                            <segment title="אנשים"/>
+                                            <segment title="אירועים"/>
+                                            <segment title="קבוצות"/>
                                         </segments>
                                     </segmentedControl>
                                 </subviews>
@@ -257,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8xk-0f-nJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3432" y="-509"/>
+            <point key="canvasLocation" x="2276" y="138"/>
         </scene>
         <!--Events List View Controller-->
         <scene sceneID="rgO-OQ-Ev4">
@@ -271,7 +271,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IdP-fh-Wht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2997" y="4"/>
+            <point key="canvasLocation" x="3252" y="158"/>
+        </scene>
+        <!--Group List View Controller-->
+        <scene sceneID="IzA-aT-4bg">
+            <objects>
+                <tableViewController restorationIdentifier="GroupsContentController" storyboardIdentifier="GroupsContentController" id="fi5-XF-fot" customClass="GroupListViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yO9-VO-zS5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="y23-x1-b0U">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y23-x1-b0U" id="dnp-QZ-4qz">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fi5-XF-fot" id="GI4-7M-cvV"/>
+                            <outlet property="delegate" destination="fi5-XF-fot" id="gpB-gq-cLq"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m1J-DD-4tF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3978" y="158"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="8E1-Dr-KMa">
@@ -314,6 +342,10 @@
         <scene sceneID="kF6-dw-C5Z">
             <objects>
                 <viewController id="aXx-z5-7ZY" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sGV-g0-twx"/>
+                        <viewControllerLayoutGuide type="bottom" id="cfy-tc-k5U"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tqp-9x-e4n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,7 +361,7 @@
                 <pageViewController storyboardIdentifier="ChatPageViewControllerId" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="5Bf-D4-PkX" customClass="ChatPageViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uxe-zP-JQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="-108"/>
+            <point key="canvasLocation" x="873" y="312"/>
         </scene>
     </scenes>
 </document>

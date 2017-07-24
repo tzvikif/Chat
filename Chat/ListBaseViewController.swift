@@ -1,65 +1,59 @@
 //
-//  EventsListViewController.swift
+//  ListBaseViewController.swift
 //  Chat
 //
-//  Created by tzviki fisher on 20/07/2017.
+//  Created by tzviki fisher on 24/07/2017.
 //  Copyright © 2017 tzviki fisher. All rights reserved.
 //
 
 import UIKit
 
-class EventsListViewController: ListBaseViewController {
-
-    var events:[Event]?   
+class ListBaseViewController: UITableViewController,HeaderTableViewDelegate {
+    let headerOffset:CGFloat = 120.0 + 30.0
+    var headerTableViewDelegate:HeaderTableViewDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        events = appDelegate.events
         tableView.contentInset = UIEdgeInsetsMake(120.0+30.0, 0, 0, 0)
-        self.tableView.register(UINib(nibName:"EventCell",bundle:nil), forCellReuseIdentifier: "eventCellId")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func didScroll(withOffset offset: CGFloat) {
+        headerTableViewDelegate?.didScroll(withOffset:offset)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-        headerTableViewDelegate?.didScroll(withOffset: -0)
+    func didFinishSwipeLeft()
+    {
+        
+        
+    }
+    func didFinishSwipeRight()
+    {
+        
+    }
+    // MARK: - UIScrollViewDelegate
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var offset = tableView.contentOffset.y
+        offset = offset + headerOffset
+        headerTableViewDelegate?.didScroll(withOffset: offset)
     }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let count = events?.count {
-            return count
-        } else {
-            return 0
-        }
+        return 0
     }
 
-    
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCellId", for: indexPath)
-        cell.textLabel?.text = events![indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
         return cell
     }
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        var offset = tableView.contentOffset.y
-//        offset = offset + headerOffset
-//        headerTableViewDelegate?.didScroll(withOffset: offset)
-//    }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.

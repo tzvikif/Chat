@@ -10,4 +10,11 @@ import UIKit
 
 protocol HeaderTableViewDelegate  {
     func didScroll(withOffset offset:CGFloat)
+    func didFinishSwipeLeft()
+    func didFinishSwipeRight()
+}
+protocol SegDelegate  {
+    func eventsClicked()
+    func groupsClicked()
+    func chatClicked()
 }

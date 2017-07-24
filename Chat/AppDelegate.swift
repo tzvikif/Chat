@@ -85,20 +85,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         var e:Event
         self.events = [Event]()
-        for i in (0...10)
+        for i in (0...20)
         {
             e = Event(eventName: "Event#\(i)")
-            events?.append(e)
+            events!.append(e)
         }
     }
     func buildGroups()
     {
         self.groups = [Group]()
         var g:Group
-        for i in (0...10)
+        for i in (0...20)
         {
             g = Group(groupName: "Group#\(i)")
-            groups?.append(g)
+            groups!.append(g)
         }
         
     }

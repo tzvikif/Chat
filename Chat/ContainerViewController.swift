@@ -32,6 +32,8 @@ class ContainerViewController: UIViewController,HeaderTableViewDelegate {
     var start_pos_headerLabel_x:CGFloat?
     var headerTableViewDelegate:HeaderTableViewDelegate?
     var ChatPageViewController: ChatPageViewController!
+    var segDelegate:SegDelegate?
+    var selectedSegIndex:Int?
 
     
     override func viewDidLoad() {
@@ -40,6 +42,8 @@ class ContainerViewController: UIViewController,HeaderTableViewDelegate {
         controller.headerTableViewDelegate = self
         //I want to pass some value - For example: controller.id = 3
         addChildViewController(controller)
+        controller.container = self
+        segDelegate = controller
         self.view.insertSubview(controller.view, belowSubview: header)
         
         didMove(toParentViewController: controller)
@@ -69,17 +73,29 @@ class ContainerViewController: UIViewController,HeaderTableViewDelegate {
         header.insertSubview(headerImageView, belowSubview: headerLabel)
         header.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        chatSeg.selectedSegmentIndex = 0
+        chatSeg.addTarget(self, action: #selector(mapTypeChanged), for: .valueChanged)
         
     }
+    //MARK: - SegmentedControll Index changed
     func mapTypeChanged(segControl: UISegmentedControl) //removing th
     {
         switch segControl.selectedSegmentIndex{
-        case 0: break
-        //mapView.mapType = .standard
-        case 1: break
-        //            mapView.mapType = .hybrid
-        case 2: break
-        //            mapView.mapType = .satellite
+        case 0:
+            if selectedSegIndex != 0 {
+                segDelegate?.chatClicked()
+            }
+            break
+        case 1:
+            if selectedSegIndex != 1 {
+                segDelegate?.eventsClicked()
+            }
+            break
+        case 2:
+            if selectedSegIndex != 2 {
+                segDelegate?.groupsClicked()
+            }
+            break
         default:
             break
         }
@@ -91,6 +107,13 @@ class ContainerViewController: UIViewController,HeaderTableViewDelegate {
             
             chatVc.name = self.chatWith
         }
+    }
+    // MARK: - HeaderTableViewDelegate
+    func didFinishSwipeLeft() {
+        chatSeg!.selectedSegmentIndex = chatSeg!.selectedSegmentIndex + 1
+    }
+    func didFinishSwipeRight() {
+        chatSeg!.selectedSegmentIndex = chatSeg!.selectedSegmentIndex - 1
     }
     func didScroll(withOffset offset: CGFloat) {
         var headerTransform = CATransform3DIdentity
@@ -141,7 +164,7 @@ class ContainerViewController: UIViewController,HeaderTableViewDelegate {
             overlayHeaderLabel.frame = headerLabel.frame
         }
     }
-    
+  
 
     /*
     // MARK: - Navigation

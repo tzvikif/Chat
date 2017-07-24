@@ -14,6 +14,10 @@
 		9165E53A1F083F730024A234 /* ChatPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165E5391F083F730024A234 /* ChatPageViewController.swift */; };
 		9165E53E1F0D86BA0024A234 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165E53D1F0D86BA0024A234 /* ChatViewController.swift */; };
 		9165E5411F1AA7E60024A234 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165E5401F1AA7E60024A234 /* utils.swift */; };
+		918204691F24E1AF00B27F2B /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918204681F24E1AF00B27F2B /* GroupListViewController.swift */; };
+		9182046C1F24E26F00B27F2B /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9182046A1F24E26F00B27F2B /* GroupCell.swift */; };
+		9182046D1F24E26F00B27F2B /* GroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9182046B1F24E26F00B27F2B /* GroupCell.xib */; };
+		918204711F25A65000B27F2B /* ListBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918204701F25A65000B27F2B /* ListBaseViewController.swift */; };
 		91A40E291F1EA3F500406073 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A40E281F1EA3F500406073 /* Event.swift */; };
 		91A40E2B1F1EA40500406073 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A40E2A1F1EA40500406073 /* Group.swift */; };
 		91A40E581F21349C00406073 /* HeaderTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A40E571F21349C00406073 /* HeaderTableViewDelegate.swift */; };
@@ -38,6 +42,10 @@
 		9165E5391F083F730024A234 /* ChatPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPageViewController.swift; sourceTree = "<group>"; };
 		9165E53D1F0D86BA0024A234 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		9165E5401F1AA7E60024A234 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		918204681F24E1AF00B27F2B /* GroupListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupListViewController.swift; sourceTree = "<group>"; };
+		9182046A1F24E26F00B27F2B /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		9182046B1F24E26F00B27F2B /* GroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCell.xib; sourceTree = "<group>"; };
+		918204701F25A65000B27F2B /* ListBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListBaseViewController.swift; sourceTree = "<group>"; };
 		91A40E281F1EA3F500406073 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		91A40E2A1F1EA40500406073 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		91A40E571F21349C00406073 /* HeaderTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +102,8 @@
 				91A40E591F21355800406073 /* EventsListViewController.swift */,
 				91A40E5B1F213FF900406073 /* ChatListViewController.swift */,
 				91A40E5D1F214B2000406073 /* ContainerViewController.swift */,
+				918204681F24E1AF00B27F2B /* GroupListViewController.swift */,
+				918204701F25A65000B27F2B /* ListBaseViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -122,6 +132,10 @@
 			children = (
 				91A40E601F23D7CE00406073 /* EventCell.swift */,
 				91A40E611F23D7CE00406073 /* EventCell.xib */,
+				9165E52F1F0615BD0024A234 /* MemberCell.swift */,
+				9165E5301F0615BD0024A234 /* MemberCell.xib */,
+				9182046A1F24E26F00B27F2B /* GroupCell.swift */,
+				9182046B1F24E26F00B27F2B /* GroupCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -156,8 +170,6 @@
 				91C86FBF1F03E57900462694 /* Assets.xcassets */,
 				91C86FC11F03E57900462694 /* LaunchScreen.storyboard */,
 				91C86FC41F03E57900462694 /* Info.plist */,
-				9165E52F1F0615BD0024A234 /* MemberCell.swift */,
-				9165E5301F0615BD0024A234 /* MemberCell.xib */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -225,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91C86FC31F03E57900462694 /* LaunchScreen.storyboard in Resources */,
+				9182046D1F24E26F00B27F2B /* GroupCell.xib in Resources */,
 				91C86FC01F03E57900462694 /* Assets.xcassets in Resources */,
 				91C86FBE1F03E57900462694 /* Main.storyboard in Resources */,
 				91A40E631F23D7CE00406073 /* EventCell.xib in Resources */,
@@ -291,14 +304,17 @@
 				91A40E291F1EA3F500406073 /* Event.swift in Sources */,
 				91A40E5E1F214B2000406073 /* ContainerViewController.swift in Sources */,
 				91A40E581F21349C00406073 /* HeaderTableViewDelegate.swift in Sources */,
+				918204711F25A65000B27F2B /* ListBaseViewController.swift in Sources */,
 				91A40E5A1F21355800406073 /* EventsListViewController.swift in Sources */,
 				9165E5341F0653780024A234 /* LoginViewController.swift in Sources */,
 				91A40E621F23D7CE00406073 /* EventCell.swift in Sources */,
+				9182046C1F24E26F00B27F2B /* GroupCell.swift in Sources */,
 				9165E5411F1AA7E60024A234 /* utils.swift in Sources */,
 				9165E5311F0615BD0024A234 /* MemberCell.swift in Sources */,
 				9165E5381F082C490024A234 /* Person.swift in Sources */,
 				91C86FB91F03E57900462694 /* AppDelegate.swift in Sources */,
 				9165E53E1F0D86BA0024A234 /* ChatViewController.swift in Sources */,
+				918204691F24E1AF00B27F2B /* GroupListViewController.swift in Sources */,
 				91A40E5C1F213FF900406073 /* ChatListViewController.swift in Sources */,
 				9165E53A1F083F730024A234 /* ChatPageViewController.swift in Sources */,
 			);

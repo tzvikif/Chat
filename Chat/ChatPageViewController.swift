@@ -15,17 +15,18 @@ import UIKit
 
 //let ratio_Y_LabelHeader:CGFloat = 0.4
 
-class ChatPageViewController: UIPageViewController,UIPageViewControllerDelegate,UIPageViewControllerDataSource ,HeaderTableViewDelegate{
-    func didScroll(withOffset offset: CGFloat) {
-        headerTableViewDelegate?.didScroll(withOffset:offset)
-    }
+class ChatPageViewController: UIPageViewController,UIPageViewControllerDelegate,UIPageViewControllerDataSource,SegDelegate
+{
+    weak var container:ContainerViewController!
+    var initialIndex:Int = 0;
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
         
     }
-    let pages = ["ChatContentController", "EventsContentController"]
+    
+    let pages = ["ChatContentController", "EventsContentController" ,"GroupsContentController"]
     var headerTableViewDelegate:HeaderTableViewDelegate?
     // MARK: - HeaderTableViewDelegate
 
@@ -39,13 +40,39 @@ class ChatPageViewController: UIPageViewController,UIPageViewControllerDelegate,
         // Pass the selected object to the new view controller.
     }
     */
+    // MARK: - SegDelegate
+    func eventsClicked()
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: pages[1])
+        let currentIndex = presentationIndex(for: self)
+        if(currentIndex > pages.index(of: "ChatContentController")!)
+        {
+            setViewControllers([vc!], direction:.reverse, animated: true, completion: nil)
+        }
+        else
+        {
+            setViewControllers([vc!], direction:.forward, animated: true, completion: nil)
+        }
+    }
+    func groupsClicked()
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: pages[2])
+        setViewControllers([vc!], direction:.forward, animated: true, completion: nil)
+    }
+    func chatClicked()
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: pages[0])
+        setViewControllers([vc!], direction:.reverse, animated: true, completion: nil)
+    }
     // MARK: - HeaderTableViewDelegate
 
     override func viewDidAppear(_ animated: Bool) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "EventsContentController")
-        setViewControllers([vc!], // Has to be a single item array, unless you're doing double sided stuff I believe
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: pages[initialIndex])
+        let controller:ListBaseViewController = vc as! ListBaseViewController
+        controller.headerTableViewDelegate = container
+        setViewControllers([vc!],
             direction: .forward,
-            animated: true,
+            animated: false,
             completion: nil)
     }
     // MARK: - UIPageViewControllerDelegate
@@ -54,8 +81,8 @@ class ChatPageViewController: UIPageViewController,UIPageViewControllerDelegate,
         if let identifier = viewController.restorationIdentifier {
             if let index = pages.index(of: identifier) {
                 if index > 0 {
-                    let controller:ChatListViewController = self.storyboard?.instantiateViewController(withIdentifier: pages[index-1]) as! ChatListViewController
-                    controller.headerTableViewDelegate = self
+                    let controller:ListBaseViewController = self.storyboard?.instantiateViewController(withIdentifier: pages[index-1]) as! ListBaseViewController
+                    controller.headerTableViewDelegate = container
                     return controller
                 }
             }
@@ -68,7 +95,9 @@ class ChatPageViewController: UIPageViewController,UIPageViewControllerDelegate,
         if let identifier = viewController.restorationIdentifier {
             if let index = pages.index(of: identifier) {
                 if index < pages.count - 1 {
-                    return self.storyboard?.instantiateViewController(withIdentifier: pages[index+1])
+                    let controller:ListBaseViewController = self.storyboard?.instantiateViewController(withIdentifier: pages[index+1]) as! ListBaseViewController
+                    controller.headerTableViewDelegate = container
+                    return controller
                 }
             }
         }
@@ -85,6 +114,22 @@ class ChatPageViewController: UIPageViewController,UIPageViewControllerDelegate,
             }
         }
         return 0
+    }
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            let prevControllerId:String = previousViewControllers[0].restorationIdentifier!
+            let prevIndex = pages.index(of: prevControllerId)!
+            let currIndex = presentationIndex(for: pageViewController)
+            if currIndex > prevIndex {
+                headerTableViewDelegate?.didFinishSwipeLeft();
+            }
+            else {
+                headerTableViewDelegate?.didFinishSwipeRight();
+            }
+            
+        }
+//        let ControllerId:String = previousViewControllers[0].restorationIdentifier!
+        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
